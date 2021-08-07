@@ -1,17 +1,52 @@
 package zaplogger
 
 import (
+	"io"
+	"os"
+
+	"github.com/mattn/go-colorable"
 	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 
 	"git.corout.in/golibs/slog"
+)
+
+const (
+	msgKey   = "reason"
+	levelKey = "level"
+	nameKey  = "logger"
 )
 
 type loggerImpl struct {
 	logger *zap.Logger
 }
 
-func New() slog.Logger {
-	return &loggerImpl{}
+// New - returns new slog.Logger like zap shugarred logger wrapper
+func New(level int, colorize bool) slog.Logger {
+	var (
+		writer io.Writer = os.Stdout
+		lvlEncoder = zapcore.CapitalLevelEncoder
+	)
+
+	if colorize {
+		lvlEncoder = zapcore.CapitalColorLevelEncoder
+		writer = colorable.NewColorableStdout()
+	}
+
+	return &loggerImpl{
+		logger: zap.New(zapcore.NewCore(
+			zapcore.NewConsoleEncoder(zapcore.EncoderConfig{
+				MessageKey:     msgKey,
+				LevelKey:       levelKey,
+				NameKey:        nameKey,
+				EncodeLevel:    lvlEncoder,
+				EncodeTime:     zapcore.ISO8601TimeEncoder,
+				EncodeDuration: zapcore.StringDurationEncoder,
+			}),
+			zapcore.AddSync(writer),
+			zap.NewAtomicLevelAt(zapcore.Level(level)),
+		)),
+	}
 }
 
 func (l *loggerImpl) Error(args ...interface{}) {
