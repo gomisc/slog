@@ -14,8 +14,10 @@ type zapMessage struct {
 	fields  []zap.Field
 }
 
-func (m *zapMessage) addField(f fields.Field) {
-	f.Value().Extract(f.Key(), m)
+func (m *zapMessage) addFields(fds ...fields.Field) {
+	for i := 0; i < len(fds); i++ {
+		fds[i].Value().Extract(fds[i].Key(), m)
+	}
 }
 
 func (l *loggerImpl) getMessagef(format string, args ...interface{}) *zapMessage {
@@ -25,9 +27,16 @@ func (l *loggerImpl) getMessagef(format string, args ...interface{}) *zapMessage
 	)
 
 	for n := range args {
-		if field, ok := args[n].(fields.Field); ok {
-			msg.addField(field)
-		} else {
+		switch args[n].(type) {
+		case fields.Field:
+			if field, ok := args[n].(fields.Field); ok {
+				msg.addFields(field)
+			}
+		case []fields.Field:
+			if fields, ok := args[n].([]fields.Field); ok {
+				msg.addFields(fields...)
+			}
+		default:
 			arguments = append(arguments, args[n])
 		}
 	}
@@ -44,9 +53,16 @@ func (l *loggerImpl) getMessage(args ...interface{}) *zapMessage {
 	)
 
 	for n := range args {
-		if field, ok := args[n].(fields.Field); ok {
-			msg.addField(field)
-		} else {
+		switch args[n].(type) {
+		case fields.Field:
+			if field, ok := args[n].(fields.Field); ok {
+				msg.addFields(field)
+			}
+		case []fields.Field:
+			if fields, ok := args[n].([]fields.Field); ok {
+				msg.addFields(fields...)
+			}
+		default:
 			message = append(message, fmt.Sprint(args[n]))
 		}
 	}
