@@ -44,7 +44,7 @@ func New(level int, colorize bool) slog.Logger {
 				EncodeDuration: zapcore.StringDurationEncoder,
 			}),
 			zapcore.AddSync(writer),
-			zap.NewAtomicLevelAt(zapcore.Level(level)),
+			zap.NewAtomicLevelAt(zapLevel(level)),
 		)),
 	}
 }
@@ -111,4 +111,23 @@ func (l *loggerImpl) Sync() {
 	if err := l.logger.Sync(); err != nil {
 		l.logger.Error("sync zap logger", zap.Error(err))
 	}
+}
+
+func zapLevel(lvl int) zapcore.Level {
+	switch lvl {
+	case slog.DebugLevel:
+		return zapcore.DebugLevel
+	case slog.InfoLevel:
+		return zapcore.InfoLevel
+	case slog.WarningLevel:
+		return zapcore.WarnLevel
+	case slog.ErrorLevel:
+		return zapcore.ErrorLevel
+	case slog.PanicLevel:
+		return zapcore.PanicLevel
+	case slog.FatalLevel:
+		return zapcore.FatalLevel
+	}
+
+	return zapcore.FatalLevel
 }
