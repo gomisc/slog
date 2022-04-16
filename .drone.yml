@@ -5,11 +5,21 @@ name: develop
 steps:
 - name: linter
   image: "golang:1.18"
+  when:
+    branch:
+      - master
+    event:
+      - push
   commands:
     - make lint
 
 - name: unit-test
   image: "golang:1.18"
+  when:
+    branch:
+      - master
+    event:
+      - push
   commands:
     - make test
 
