@@ -15,7 +15,7 @@ gomod:
 	go mod download
 
 .PHONY: lint
-lint: fmt gomod
+lint:
 ifeq ($(linter),)
 	curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(GOBIN) v1.45.2
 endif
