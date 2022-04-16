@@ -1,5 +1,6 @@
 package slog
 
+// Уровни логирования
 const (
 	FatalLevel int = iota
 	PanicLevel

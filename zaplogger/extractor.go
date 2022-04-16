@@ -56,7 +56,7 @@ func (m *zapMessage) Float64(key string, value float64) {
 	m.fields = append(m.fields, zap.Float64(key, value))
 }
 
-func (m *zapMessage) Str(key string, value string) {
+func (m *zapMessage) Str(key, value string) {
 	m.fields = append(m.fields, zap.String(key, value))
 }
 
@@ -67,6 +67,3 @@ func (m *zapMessage) Strings(key string, values []string) {
 func (m *zapMessage) Any(key string, value interface{}) {
 	m.fields = append(m.fields, zap.Any(key, value))
 }
-
-
-

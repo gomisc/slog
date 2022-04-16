@@ -1,5 +1,6 @@
 package slog
 
+// Logger - интерфейс логгера
 type Logger interface {
 	Error(args ...interface{})
 	Errorf(template string, args ...interface{})

@@ -1,5 +1,5 @@
-git.corout.in/golibs/fields v1.0.1 h1:4ARpvDzKjyXBrmXOmfkV3/dk8AbS2IDedJugvi39wXI=
-git.corout.in/golibs/fields v1.0.1/go.mod h1:Tw1H3CHtkNk3rgfUQUi96L8CrJmyibnazB9Q2csXRno=
+git.corout.in/golibs/fields v1.0.2 h1:XV3WGs/8ZSPhOyoOEvOHIt/g3gZsyPigJEVMR6maNhU=
+git.corout.in/golibs/fields v1.0.2/go.mod h1:SfKMdRc3L2vprkZQ7/eTK5tuKrQ+w7O2Fh6r3ZQjmP8=
 github.com/benbjohnson/clock v1.1.0 h1:Q92kusRqC1XV2MjkWETPvjJVqKetz1OzxZB7mHJLju8=
 github.com/benbjohnson/clock v1.1.0/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

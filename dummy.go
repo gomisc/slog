@@ -4,32 +4,30 @@ func newDummy() Logger {
 	return &dummyLogger{}
 }
 
-type dummyLogger struct {}
+type dummyLogger struct{}
 
-func (d dummyLogger) Error(args ...interface{}) {}
+func (d dummyLogger) Error(...interface{}) {}
 
-func (d dummyLogger) Errorf(template string, args ...interface{}) {}
+func (d dummyLogger) Errorf(string, ...interface{}) {}
 
-func (d dummyLogger) Fatal(args ...interface{}) {}
+func (d dummyLogger) Fatal(...interface{}) {}
 
-func (d dummyLogger) Fatalf(template string, args ...interface{}) {}
+func (d dummyLogger) Fatalf(string, ...interface{}) {}
 
-func (d dummyLogger) Info(args ...interface{}) {}
+func (d dummyLogger) Info(...interface{}) {}
 
-func (d dummyLogger) Infof(template string, args ...interface{}) {}
+func (d dummyLogger) Infof(string, ...interface{}) {}
 
-func (d dummyLogger) Panic(args ...interface{}) {}
+func (d dummyLogger) Panic(...interface{}) {}
 
-func (d dummyLogger) Panicf(template string, args ...interface{}) {}
+func (d dummyLogger) Panicf(string, ...interface{}) {}
 
-func (d dummyLogger) Warn(args ...interface{}) {}
+func (d dummyLogger) Warn(...interface{}) {}
 
-func (d dummyLogger) Warnf(template string, args ...interface{}) {}
+func (d dummyLogger) Warnf(string, ...interface{}) {}
 
-func (d dummyLogger) With(args ...interface{}) Logger {
+func (d dummyLogger) With(...interface{}) Logger {
 	return d
 }
 
 func (d dummyLogger) Sync() {}
-
-

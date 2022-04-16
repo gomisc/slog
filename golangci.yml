@@ -1,0 +1,203 @@
+output:
+  # формат вывода, м. б. colored-line-number|line-number|json|tab|checkstyle|code-climate
+  format: colored-line-number
+  print-issued-lines: true
+  print-linter-name: true
+  uniq-by-line: true
+
+linters-settings:
+  goimports:
+    local-prefixes: git.corout.in/golibs/slog
+  dogsled:
+    # максимальное количество пропускаемых пустых строк
+    max-blank-identifiers: 2
+  errcheck:
+    exclude: .errcheck
+  lll:
+    # максимальная длина строки
+    line-length: 140
+    # ширина табуляции в пробелах
+    tab-width: 1
+  gocritic:
+    enabled-checks:
+      - commentedOutCode # закоментированный код (мусор)
+      - evalOrder
+      - nilValReturn
+      - regexpPattern
+      - sloppyReassign # запутанные переназначения
+      - truncateCmp
+      - weakCond
+      # style
+      - boolExprSimplify
+      - builtinShadow
+      - commentedOutImport # закоментированные импорты (мусор)
+      - docStub
+      - emptyFallthrough
+      - emptyStringTest # проверка пустых строк
+      - hexLiteral
+      - importShadow # затенение импорта
+      - initClause
+      - methodExprCall
+      - nestingReduce
+      - paramTypeCombine # некомбинированные параметры одного типа в сигнатурах
+      - ptrToRefParam
+      - typeAssertChain
+      - typeUnparen
+      - unlabelStmt
+      - unnamedResult
+      - unnecessaryBlock
+      - yodaStyleExpr
+  gomnd:
+    settings:
+      # "магические числа" (убирать под идентификаторы, лучше в константы, если нет в конфигах)
+      mnd:
+        # список где проверять, см. https://github.com/tommy-muehle/go-mnd/#checks для пояснений
+        checks: argument,case,condition,operation,return,assign
+        ignored-numbers: 0,1
+  govet:
+    # сообщать о теневых переменных
+    check-shadowing: true
+    settings:
+      printf: # имя анализатора, чтобы постотреть все выполни: `go tool vet help`
+        funcs: # выполни `go tool vet help printf` чтобы посмотреть все возможные настройки для `printf` анализатора
+          - (github.com/golangci/golangci-lint/gopkg/logutils.Log).Infof
+          - (github.com/golangci/golangci-lint/gopkg/logutils.Log).Warnf
+          - (github.com/golangci/golangci-lint/gopkg/logutils.Log).Errorf
+          - (github.com/golangci/golangci-lint/gopkg/logutils.Log).Fatalf
+  wsl: # добавление пустых строк (отступов для читабельности)
+    # If true append is only allowed to be cuddled if appending value is
+    # matching variables, fields or types on line above. Default is true.
+    strict-append: true
+    # Allow calls and assignments to be cuddled as long as the lines have any
+    # matching variables, fields or types. Default is true.
+    allow-assign-and-call: false
+    # Allow multiline assignments to be cuddled. Default is true.
+    allow-multiline-assign: true
+    # Allow declarations (var) to be cuddled.
+    allow-cuddle-declarations: false
+    # Allow trailing comments in ending of blocks
+    allow-trailing-comment: false
+    # Force newlines in end of case at this limit (0 = never).
+    force-case-trailing-whitespace: 0
+  godot:
+    # проверять комментарии: `declarations`, `toplevel`, или `all`
+    scope: declarations
+    # список регулярных выражений для исключения из проверки определенных строк комментариев
+    exclude:
+    # пример: исключить комментарии, содержащие числа
+    # - '[0-9]+'
+    # убедитесь, что каждое предложение начинается с заглавной буквы
+    capital: true
+  gofumpt:
+    #Выберите версию Go для проверки соответствия. По умолчанию - - 1.15
+    lang-version: "1.16"
+    # Выберите, следует ли использовать отключенные дополнительные правила
+    # по умолчанию
+    extra-rules: false
+  gosimple:
+    # Выберите версию Go для проверки соответствия. По умолчанию -- 1,13.
+    go: "1.18"
+    # https://staticcheck.io/docs/options#checks
+    checks: [ "all" ]
+  nilnil:
+    # По умолчанию nilnil проверяет все возвращаемые типы ниже
+    checked-types:
+      - ptr
+      - func
+      - iface
+      - map
+      - chan
+  unused:
+    # Выберите версию Go для проверки соответствия. По умолчанию - '1.13'.
+    go: "1.16"
+  revive:
+    # смотри https://github.com/mgechev/revive#available-rules для подробностей
+    ignore-generated-header: true
+    severity: error
+    rules:
+      # похороненные ошибки (включить позже)
+      - name: unhandled-error
+        arguments: [ "fmt.Printf", "fmt.Println" ]
+      # кривое использование defer
+      - name: defer
+        arguments: [["call-chain","loop"]]
+      - name: early-return
+      - name: exported
+        arguments: []
+      - name: import-shadowing
+      - name: range-val-in-closure
+      - name: unreachable-code
+      - name: unused-parameter
+      - name: context-as-argument
+      - name: bare-return
+      - name: range
+      - name: package-comments # https://github.com/golang/go/wiki/CodeReviewComments#package-comments
+      - name: modifies-parameter
+  dupl:
+    threshold: 100
+  gosec:
+    excludes:
+      - G204
+
+# полный список линтеров смотреть тут https://golangci-lint.run/usage/linters/
+linters:
+  disable-all: true
+  enable:
+    - deadcode # Finds unused code
+    - revive # замена golint.
+    - gofmt # Gofmt checks whether code was gofmt-ed. By default this tool runs with -s option to check for code simplification
+    - gosimple # Linter for Go source code that specializes in simplifying a code
+    - govet # Vet examines Go source code and reports suspicious constructs, such as Printf calls whose arguments do not align with the format string
+    - ineffassign # Detects when assignments to existing variables are not used
+    - lll # Reports long lines
+    - staticcheck # Staticcheck is a go vet on steroids, applying a ton of static analysis checks
+    - structcheck # Finds an unused struct fields
+    - typecheck # Like the front-end of a Go compiler, parses and type-checks Go code
+    - unconvert # Remove unnecessary type conversions
+    - unparam # Reports unused function parameters
+    - unused # Checks Go code for unused constants, variables, functions and types
+    - varcheck # Finds unused global variables and constants
+    - unconvert # Remove unnecessary type conversions
+    - dupl # Tool for code clone detection
+    - goconst # Finds repeated strings that could be replaced by a constant
+    - gocyclo # Computes and checks the cyclomatic complexity of functions
+    - depguard # Go linter that checks if package imports are in a list of acceptable packages
+    - misspell # Finds commonly misspelled English words in comments
+    - nakedret # Finds naked returns in functions greater than a specified function length
+    - prealloc # Finds slice declarations that could potentially be preallocated
+    - exportloopref # Scopelint checks for unpinned variables in go programs
+    - gocritic # The most opinionated Go source code linter
+    - gochecknoinits # Проверяет, что в коде Go отсутствуют функции инициализации
+    - gochecknoglobals # Проверяет отсутствие глобальных переменных в коде Go
+    - gosec # Проверяет исходный код на наличие проблем с безопасностью
+    - wsl # проверка отступов и разделений блоков кода (для читабельности)
+    - goimports # проверка импортов
+    - whitespace # пробельные символы
+    - gofumpt # проверка форматирования
+
+issues:
+  exclude-use-default: false
+
+  # правила исключения
+  exclude-rules:
+    # все юнит-тесты
+    - path: _test\.go
+      linters:
+        - gocyclo
+        - errcheck
+        - dupl
+        - gosec
+        - funlen
+        - gocognit
+        - gomnd
+        - wsl
+        - lll
+        - revive
+
+    # все компонентные тесты
+    - path: "test_.*\\.go$"
+      linters:
+        - funlen
+        - gomnd
+        - gocognit
+        - revive

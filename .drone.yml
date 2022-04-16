@@ -3,8 +3,13 @@ type: docker
 name: develop
 
 steps:
-- name: unit-test
-  image: "golang:1.16"
+- name: linter
+  image: "golang:1.18"
   commands:
-    - go test ./...
+    - make lint
+
+- name: unit-test
+  image: "golang:1.18"
+  commands:
+    - make test
 

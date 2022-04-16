@@ -6,7 +6,7 @@ import (
 
 type loggerKey struct{}
 
-var dummy = newDummy()
+var dummy = newDummy() // nolint
 
 // ToContext помещает логгер в контекст
 func ToContext(ctx context.Context, log Logger) context.Context {

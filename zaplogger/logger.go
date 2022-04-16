@@ -24,8 +24,8 @@ type loggerImpl struct {
 // New - returns new slog.Logger like zap shugarred logger wrapper
 func New(level int, colorize bool) slog.Logger {
 	var (
-		writer io.Writer = os.Stdout
-		lvlEncoder = zapcore.CapitalLevelEncoder
+		writer     io.Writer = os.Stdout
+		lvlEncoder           = zapcore.CapitalLevelEncoder
 	)
 
 	if colorize {
@@ -44,63 +44,63 @@ func New(level int, colorize bool) slog.Logger {
 				EncodeDuration: zapcore.StringDurationEncoder,
 			}),
 			zapcore.AddSync(writer),
-			zap.NewAtomicLevelAt(zapLevel(level)),
+			zap.NewAtomicLevelAt(CountdownLevel(level)),
 		)),
 	}
 }
 
 func (l *loggerImpl) Error(args ...interface{}) {
-	msg := l.getMessage(args...)
+	msg := getMessage(args...)
 	l.logger.Error(msg.message, msg.fields...)
 }
 
 func (l *loggerImpl) Errorf(template string, args ...interface{}) {
-	msg := l.getMessagef(template, args...)
+	msg := getMessagef(template, args...)
 	l.logger.Error(msg.message, msg.fields...)
 }
 
 func (l *loggerImpl) Fatal(args ...interface{}) {
-	msg := l.getMessage(args...)
+	msg := getMessage(args...)
 	l.logger.Fatal(msg.message, msg.fields...)
 }
 
 func (l *loggerImpl) Fatalf(template string, args ...interface{}) {
-	msg := l.getMessagef(template, args...)
+	msg := getMessagef(template, args...)
 	l.logger.Fatal(msg.message, msg.fields...)
 }
 
 func (l *loggerImpl) Info(args ...interface{}) {
-	msg := l.getMessage(args...)
+	msg := getMessage(args...)
 	l.logger.Info(msg.message, msg.fields...)
 }
 
 func (l *loggerImpl) Infof(template string, args ...interface{}) {
-	msg := l.getMessagef(template, args...)
+	msg := getMessagef(template, args...)
 	l.logger.Info(msg.message, msg.fields...)
 }
 
 func (l *loggerImpl) Panic(args ...interface{}) {
-	msg := l.getMessage(args...)
+	msg := getMessage(args...)
 	l.logger.Panic(msg.message, msg.fields...)
 }
 
 func (l *loggerImpl) Panicf(template string, args ...interface{}) {
-	msg := l.getMessagef(template, args...)
+	msg := getMessagef(template, args...)
 	l.logger.Panic(msg.message, msg.fields...)
 }
 
 func (l *loggerImpl) Warn(args ...interface{}) {
-	msg := l.getMessage(args...)
+	msg := getMessage(args...)
 	l.logger.Warn(msg.message, msg.fields...)
 }
 
 func (l *loggerImpl) Warnf(template string, args ...interface{}) {
-	msg := l.getMessagef(template, args...)
+	msg := getMessagef(template, args...)
 	l.logger.Warn(msg.message, msg.fields...)
 }
 
 func (l *loggerImpl) With(args ...interface{}) slog.Logger {
-	msg := l.getMessage(args...)
+	msg := getMessage(args...)
 
 	return &loggerImpl{
 		logger: l.logger.With(msg.fields...),
@@ -111,23 +111,4 @@ func (l *loggerImpl) Sync() {
 	if err := l.logger.Sync(); err != nil {
 		l.logger.Error("sync zap logger", zap.Error(err))
 	}
-}
-
-func zapLevel(lvl int) zapcore.Level {
-	switch lvl {
-	case slog.DebugLevel:
-		return zapcore.DebugLevel
-	case slog.InfoLevel:
-		return zapcore.InfoLevel
-	case slog.WarningLevel:
-		return zapcore.WarnLevel
-	case slog.ErrorLevel:
-		return zapcore.ErrorLevel
-	case slog.PanicLevel:
-		return zapcore.PanicLevel
-	case slog.FatalLevel:
-		return zapcore.FatalLevel
-	}
-
-	return zapcore.FatalLevel
 }

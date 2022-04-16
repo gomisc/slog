@@ -20,33 +20,7 @@ func (m *zapMessage) addFields(fds ...fields.Field) {
 	}
 }
 
-func (l *loggerImpl) getMessagef(format string, args ...interface{}) *zapMessage {
-	var (
-		arguments []interface{}
-		msg     = &zapMessage{}
-	)
-
-	for n := range args {
-		switch args[n].(type) {
-		case fields.Field:
-			if field, ok := args[n].(fields.Field); ok {
-				msg.addFields(field)
-			}
-		case []fields.Field:
-			if fields, ok := args[n].([]fields.Field); ok {
-				msg.addFields(fields...)
-			}
-		default:
-			arguments = append(arguments, args[n])
-		}
-	}
-
-	msg.message = fmt.Sprintf(format, arguments...)
-
-	return msg
-}
-
-func (l *loggerImpl) getMessage(args ...interface{}) *zapMessage {
+func getMessage(args ...any) *zapMessage {
 	var (
 		message []string
 		msg     = &zapMessage{}
@@ -59,8 +33,8 @@ func (l *loggerImpl) getMessage(args ...interface{}) *zapMessage {
 				msg.addFields(field)
 			}
 		case []fields.Field:
-			if fields, ok := args[n].([]fields.Field); ok {
-				msg.addFields(fields...)
+			if flds, ok := args[n].([]fields.Field); ok {
+				msg.addFields(flds...)
 			}
 		default:
 			message = append(message, fmt.Sprint(args[n]))
@@ -68,6 +42,32 @@ func (l *loggerImpl) getMessage(args ...interface{}) *zapMessage {
 	}
 
 	msg.message = strings.Join(message, " ")
+
+	return msg
+}
+
+func getMessagef(format string, args ...any) *zapMessage {
+	var (
+		arguments []interface{}
+		msg       = &zapMessage{}
+	)
+
+	for n := range args {
+		switch args[n].(type) {
+		case fields.Field:
+			if field, ok := args[n].(fields.Field); ok {
+				msg.addFields(field)
+			}
+		case []fields.Field:
+			if flds, ok := args[n].([]fields.Field); ok {
+				msg.addFields(flds...)
+			}
+		default:
+			arguments = append(arguments, args[n])
+		}
+	}
+
+	msg.message = fmt.Sprintf(format, arguments...)
 
 	return msg
 }
