@@ -5,6 +5,9 @@ output:
   print-linter-name: true
   uniq-by-line: true
 
+run:
+  go: 1.17
+
 linters-settings:
   goimports:
     local-prefixes: git.corout.in/golibs/slog
@@ -95,8 +98,7 @@ linters-settings:
     # по умолчанию
     extra-rules: false
   gosimple:
-    # Выберите версию Go для проверки соответствия. По умолчанию -- 1,13.
-    go: "1.18"
+    go: 1.17
     # https://staticcheck.io/docs/options#checks
     checks: [ "all" ]
   nilnil:
@@ -109,7 +111,7 @@ linters-settings:
       - chan
   unused:
     # Выберите версию Go для проверки соответствия. По умолчанию - '1.13'.
-    go: "1.16"
+    go: "1.17"
   revive:
     # смотри https://github.com/mgechev/revive#available-rules для подробностей
     ignore-generated-header: true
