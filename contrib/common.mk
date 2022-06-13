@@ -17,3 +17,6 @@ tools = $(shell command -v stringer 2> /dev/null)
 GOREADME = goreadme -title="$(PROJECT_NAME)" -credit=false -skip-sub-packages > README.md
 GOMARKDOC = gomarkdoc --output '{{.Dir}}/README.md' ./zaplogger/...
 
+.PHONY: ver
+version:
+	@echo $(VER)

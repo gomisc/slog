@@ -1,9 +1,9 @@
 module git.corout.in/golibs/slog
 
-go 1.18
+go 1.17
 
 require (
-	git.corout.in/golibs/fields v1.0.2
+	git.corout.in/golibs/fields v1.0.5
 	github.com/mattn/go-colorable v0.1.8
 	go.uber.org/zap v1.18.1
 )
