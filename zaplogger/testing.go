@@ -116,6 +116,16 @@ func (z *Testing) Panicf(format string, args ...any) {
 	z.logger.Panic(msg.message, msg.fields...)
 }
 
+func (z *Testing) Debug(args ...any) {
+	msg := getMessage(args...)
+	z.logger.Debug(msg.message, msg.fields...)
+}
+
+func (z *Testing) Debugf(template string, args ...any) {
+	msg := getMessagef(template, args...)
+	z.logger.Debug(msg.message, msg.fields...)
+}
+
 // With - спавнит логгер с анотацией полями
 func (z *Testing) With(args ...any) slog.Logger {
 	msg := getMessage(args...)

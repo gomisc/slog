@@ -26,6 +26,10 @@ func (d dummyLogger) Warn(...any) {}
 
 func (d dummyLogger) Warnf(string, ...any) {}
 
+func (d dummyLogger) Debug(...any) {}
+
+func (d dummyLogger) Debugf(string, ...any) {}
+
 func (d dummyLogger) With(...any) Logger {
 	return d
 }
