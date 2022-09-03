@@ -20,7 +20,7 @@ func (m *zapMessage) addFields(fds ...fields.Field) {
 	}
 }
 
-func getMessage(args ...interface{}) *zapMessage {
+func getMessage(args ...any) *zapMessage {
 	var (
 		message []string
 		msg     = &zapMessage{}
@@ -46,7 +46,7 @@ func getMessage(args ...interface{}) *zapMessage {
 	return msg
 }
 
-func getMessagef(format string, args ...interface{}) *zapMessage {
+func getMessagef(format string, args ...any) *zapMessage {
 	var (
 		arguments []interface{}
 		msg       = &zapMessage{}

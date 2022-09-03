@@ -49,57 +49,67 @@ func New(level int, colorize bool) slog.Logger {
 	}
 }
 
-func (l *loggerImpl) Error(args ...interface{}) {
+func (l *loggerImpl) Error(args ...any) {
 	msg := getMessage(args...)
 	l.logger.Error(msg.message, msg.fields...)
 }
 
-func (l *loggerImpl) Errorf(template string, args ...interface{}) {
+func (l *loggerImpl) Errorf(template string, args ...any) {
 	msg := getMessagef(template, args...)
 	l.logger.Error(msg.message, msg.fields...)
 }
 
-func (l *loggerImpl) Fatal(args ...interface{}) {
+func (l *loggerImpl) Fatal(args ...any) {
 	msg := getMessage(args...)
 	l.logger.Fatal(msg.message, msg.fields...)
 }
 
-func (l *loggerImpl) Fatalf(template string, args ...interface{}) {
+func (l *loggerImpl) Fatalf(template string, args ...any) {
 	msg := getMessagef(template, args...)
 	l.logger.Fatal(msg.message, msg.fields...)
 }
 
-func (l *loggerImpl) Info(args ...interface{}) {
+func (l *loggerImpl) Info(args ...any) {
 	msg := getMessage(args...)
 	l.logger.Info(msg.message, msg.fields...)
 }
 
-func (l *loggerImpl) Infof(template string, args ...interface{}) {
+func (l *loggerImpl) Infof(template string, args ...any) {
 	msg := getMessagef(template, args...)
 	l.logger.Info(msg.message, msg.fields...)
 }
 
-func (l *loggerImpl) Panic(args ...interface{}) {
+func (l *loggerImpl) Panic(args ...any) {
 	msg := getMessage(args...)
 	l.logger.Panic(msg.message, msg.fields...)
 }
 
-func (l *loggerImpl) Panicf(template string, args ...interface{}) {
+func (l *loggerImpl) Panicf(template string, args ...any) {
 	msg := getMessagef(template, args...)
 	l.logger.Panic(msg.message, msg.fields...)
 }
 
-func (l *loggerImpl) Warn(args ...interface{}) {
+func (l *loggerImpl) Warn(args ...any) {
 	msg := getMessage(args...)
 	l.logger.Warn(msg.message, msg.fields...)
 }
 
-func (l *loggerImpl) Warnf(template string, args ...interface{}) {
+func (l *loggerImpl) Warnf(template string, args ...any) {
 	msg := getMessagef(template, args...)
 	l.logger.Warn(msg.message, msg.fields...)
 }
 
-func (l *loggerImpl) With(args ...interface{}) slog.Logger {
+func (l *loggerImpl) Debug(args ...any) {
+	msg := getMessage(args...)
+	l.logger.Debug(msg.message, msg.fields...)
+}
+
+func (l *loggerImpl) Debugf(template string, args ...any) {
+	msg := getMessagef(template, args...)
+	l.logger.Debug(msg.message, msg.fields...)
+}
+
+func (l *loggerImpl) With(args ...any) slog.Logger {
 	msg := getMessage(args...)
 
 	return &loggerImpl{

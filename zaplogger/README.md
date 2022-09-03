@@ -13,23 +13,23 @@ import "git.corout.in/golibs/slog/zaplogger"
 - [type LogLevel](<#type-loglevel>)
   - [func CountdownLevel(l int) LogLevel](<#func-countdownlevel>)
 - [type Testing](<#type-testing>)
-  - [func (z *Testing) Error(args ...interface{})](<#func-testing-error>)
-  - [func (z *Testing) Errorf(format string, args ...interface{})](<#func-testing-errorf>)
+  - [func (z *Testing) Error(args ...any)](<#func-testing-error>)
+  - [func (z *Testing) Errorf(format string, args ...any)](<#func-testing-errorf>)
   - [func (z *Testing) Fail()](<#func-testing-fail>)
   - [func (z *Testing) FailNow()](<#func-testing-failnow>)
   - [func (z *Testing) Failed() bool](<#func-testing-failed>)
-  - [func (z *Testing) Fatal(args ...interface{})](<#func-testing-fatal>)
-  - [func (z *Testing) Fatalf(format string, args ...interface{})](<#func-testing-fatalf>)
-  - [func (z *Testing) Info(args ...interface{})](<#func-testing-info>)
-  - [func (z *Testing) Infof(format string, args ...interface{})](<#func-testing-infof>)
-  - [func (z *Testing) Logf(s string, i ...interface{})](<#func-testing-logf>)
+  - [func (z *Testing) Fatal(args ...any)](<#func-testing-fatal>)
+  - [func (z *Testing) Fatalf(format string, args ...any)](<#func-testing-fatalf>)
+  - [func (z *Testing) Info(args ...any)](<#func-testing-info>)
+  - [func (z *Testing) Infof(format string, args ...any)](<#func-testing-infof>)
+  - [func (z *Testing) Logf(s string, i ...any)](<#func-testing-logf>)
   - [func (z *Testing) Name() string](<#func-testing-name>)
-  - [func (z *Testing) Panic(args ...interface{})](<#func-testing-panic>)
-  - [func (z *Testing) Panicf(format string, args ...interface{})](<#func-testing-panicf>)
+  - [func (z *Testing) Panic(args ...any)](<#func-testing-panic>)
+  - [func (z *Testing) Panicf(format string, args ...any)](<#func-testing-panicf>)
   - [func (z *Testing) Sync()](<#func-testing-sync>)
-  - [func (z *Testing) Warn(args ...interface{})](<#func-testing-warn>)
-  - [func (z *Testing) Warnf(format string, args ...interface{})](<#func-testing-warnf>)
-  - [func (z *Testing) With(args ...interface{}) slog.Logger](<#func-testing-with>)
+  - [func (z *Testing) Warn(args ...any)](<#func-testing-warn>)
+  - [func (z *Testing) Warnf(format string, args ...any)](<#func-testing-warnf>)
+  - [func (z *Testing) With(args ...any) slog.Logger](<#func-testing-with>)
 
 
 ## func New
@@ -80,7 +80,7 @@ type Testing struct {
 ### func \(\*Testing\) Error
 
 ```go
-func (z *Testing) Error(args ...interface{})
+func (z *Testing) Error(args ...any)
 ```
 
 Error логирует ошибку
@@ -88,7 +88,7 @@ Error логирует ошибку
 ### func \(\*Testing\) Errorf
 
 ```go
-func (z *Testing) Errorf(format string, args ...interface{})
+func (z *Testing) Errorf(format string, args ...any)
 ```
 
 Errorf логирует ошибку с форматированным сообщением
@@ -120,7 +120,7 @@ Failed возвращает признак того что тест заверш
 ### func \(\*Testing\) Fatal
 
 ```go
-func (z *Testing) Fatal(args ...interface{})
+func (z *Testing) Fatal(args ...any)
 ```
 
 Fatal логирует ошибку и прерывает работу
@@ -128,7 +128,7 @@ Fatal логирует ошибку и прерывает работу
 ### func \(\*Testing\) Fatalf
 
 ```go
-func (z *Testing) Fatalf(format string, args ...interface{})
+func (z *Testing) Fatalf(format string, args ...any)
 ```
 
 Fatalf логирует ошибку и прерывает работу с форматированным сообщением
@@ -136,7 +136,7 @@ Fatalf логирует ошибку и прерывает работу с фо�
 ### func \(\*Testing\) Info
 
 ```go
-func (z *Testing) Info(args ...interface{})
+func (z *Testing) Info(args ...any)
 ```
 
 Info логирует информационное сообщение
@@ -144,7 +144,7 @@ Info логирует информационное сообщение
 ### func \(\*Testing\) Infof
 
 ```go
-func (z *Testing) Infof(format string, args ...interface{})
+func (z *Testing) Infof(format string, args ...any)
 ```
 
 Infof логирует информационное сообщение с форматированием
@@ -152,7 +152,7 @@ Infof логирует информационное сообщение с фор
 ### func \(\*Testing\) Logf
 
 ```go
-func (z *Testing) Logf(s string, i ...interface{})
+func (z *Testing) Logf(s string, i ...any)
 ```
 
 Logf \- реализация logger\-a testing\.TB
@@ -168,7 +168,7 @@ Name возвращает имя теста
 ### func \(\*Testing\) Panic
 
 ```go
-func (z *Testing) Panic(args ...interface{})
+func (z *Testing) Panic(args ...any)
 ```
 
 Panic \- логгирует панику
@@ -176,7 +176,7 @@ Panic \- логгирует панику
 ### func \(\*Testing\) Panicf
 
 ```go
-func (z *Testing) Panicf(format string, args ...interface{})
+func (z *Testing) Panicf(format string, args ...any)
 ```
 
 Panicf \- логгирует панику с форматированным сообщением
@@ -192,7 +192,7 @@ Sync \- синхронизация логгера
 ### func \(\*Testing\) Warn
 
 ```go
-func (z *Testing) Warn(args ...interface{})
+func (z *Testing) Warn(args ...any)
 ```
 
 Warn логирует предупреждение
@@ -200,7 +200,7 @@ Warn логирует предупреждение
 ### func \(\*Testing\) Warnf
 
 ```go
-func (z *Testing) Warnf(format string, args ...interface{})
+func (z *Testing) Warnf(format string, args ...any)
 ```
 
 Warnf логирует предупреждение с форматированным сообщением
@@ -208,7 +208,7 @@ Warnf логирует предупреждение с форматирован�
 ### func \(\*Testing\) With
 
 ```go
-func (z *Testing) With(args ...interface{}) slog.Logger
+func (z *Testing) With(args ...any) slog.Logger
 ```
 
 With \- спавнит логгер с анотацией полями

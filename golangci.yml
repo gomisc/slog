@@ -6,7 +6,7 @@ output:
   uniq-by-line: true
 
 run:
-  go: 1.17
+  go: 1.18
 
 linters-settings:
   goimports:
@@ -98,7 +98,7 @@ linters-settings:
     # по умолчанию
     extra-rules: false
   gosimple:
-    go: 1.17
+    go: 1.18
     # https://staticcheck.io/docs/options#checks
     checks: [ "all" ]
   nilnil:

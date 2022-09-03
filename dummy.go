@@ -6,27 +6,27 @@ func newDummy() Logger {
 
 type dummyLogger struct{}
 
-func (d dummyLogger) Error(...interface{}) {}
+func (d dummyLogger) Error(...any) {}
 
-func (d dummyLogger) Errorf(string, ...interface{}) {}
+func (d dummyLogger) Errorf(string, ...any) {}
 
-func (d dummyLogger) Fatal(...interface{}) {}
+func (d dummyLogger) Fatal(...any) {}
 
-func (d dummyLogger) Fatalf(string, ...interface{}) {}
+func (d dummyLogger) Fatalf(string, ...any) {}
 
-func (d dummyLogger) Info(...interface{}) {}
+func (d dummyLogger) Info(...any) {}
 
-func (d dummyLogger) Infof(string, ...interface{}) {}
+func (d dummyLogger) Infof(string, ...any) {}
 
-func (d dummyLogger) Panic(...interface{}) {}
+func (d dummyLogger) Panic(...any) {}
 
-func (d dummyLogger) Panicf(string, ...interface{}) {}
+func (d dummyLogger) Panicf(string, ...any) {}
 
-func (d dummyLogger) Warn(...interface{}) {}
+func (d dummyLogger) Warn(...any) {}
 
-func (d dummyLogger) Warnf(string, ...interface{}) {}
+func (d dummyLogger) Warnf(string, ...any) {}
 
-func (d dummyLogger) With(...interface{}) Logger {
+func (d dummyLogger) With(...any) Logger {
 	return d
 }
 

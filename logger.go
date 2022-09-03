@@ -2,22 +2,25 @@ package slog
 
 // Logger - интерфейс логгера
 type Logger interface {
-	Error(args ...interface{})
-	Errorf(template string, args ...interface{})
+	Error(args ...any)
+	Errorf(template string, args ...any)
 
-	Fatal(args ...interface{})
-	Fatalf(template string, args ...interface{})
+	Fatal(args ...any)
+	Fatalf(template string, args ...any)
 
-	Info(args ...interface{})
-	Infof(template string, args ...interface{})
+	Info(args ...any)
+	Infof(template string, args ...any)
 
-	Panic(args ...interface{})
-	Panicf(template string, args ...interface{})
+	Panic(args ...any)
+	Panicf(template string, args ...any)
 
-	Warn(args ...interface{})
-	Warnf(template string, args ...interface{})
+	Warn(args ...any)
+	Warnf(template string, args ...any)
 
-	With(args ...interface{}) Logger
+	Debug(args ...any)
+	Debugf(template string, args ...any)
+
+	With(args ...any) Logger
 
 	Sync()
 }
