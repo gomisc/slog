@@ -15,6 +15,7 @@ const (
 	msgKey   = "reason"
 	levelKey = "level"
 	nameKey  = "logger"
+	timeKey  = "ts"
 )
 
 type loggerImpl struct {
@@ -39,6 +40,7 @@ func New(level int, colorize bool) slog.Logger {
 				MessageKey:     msgKey,
 				LevelKey:       levelKey,
 				NameKey:        nameKey,
+				TimeKey:        timeKey,
 				EncodeLevel:    lvlEncoder,
 				EncodeTime:     zapcore.ISO8601TimeEncoder,
 				EncodeDuration: zapcore.StringDurationEncoder,
