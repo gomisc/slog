@@ -3,7 +3,7 @@
 # zaplogger
 
 ```go
-import "git.corout.in/golibs/slog/zaplogger"
+import "git.eth4.dev/golibs/slog/zaplogger"
 ```
 
 ## Index

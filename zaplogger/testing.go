@@ -6,7 +6,7 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zaptest"
 
-	"git.corout.in/golibs/slog"
+	"git.eth4.dev/golibs/slog"
 )
 
 // Testing - logger соответсвующий logger.Logger и zaptest.TestingT
