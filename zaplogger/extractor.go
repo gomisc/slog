@@ -1,6 +1,7 @@
 package zaplogger
 
 import (
+	"git.eth4.dev/golibs/errors"
 	"go.uber.org/zap"
 )
 
@@ -65,5 +66,14 @@ func (m *zapMessage) Strings(key string, values []string) {
 }
 
 func (m *zapMessage) Any(key string, value interface{}) {
-	m.fields = append(m.fields, zap.Any(key, value))
+	switch v := value.(type) {
+	case error:
+		m.fields = append(m.fields, zap.Error(v))
+
+		if ext, ok := value.(errors.ContextError); ok {
+			ext.Extract(m)
+		}
+	default:
+		m.fields = append(m.fields, zap.Any(key, value))
+	}
 }
