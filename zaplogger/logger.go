@@ -23,6 +23,7 @@ type loggerImpl struct {
 }
 
 // New - returns new slog.Logger like zap shugarred logger wrapper
+// deprecated: use NewDevelopment or NewProduction instead
 func New(level int, colorize bool) slog.Logger {
 	var (
 		writer     io.Writer = os.Stdout
@@ -46,6 +47,52 @@ func New(level int, colorize bool) slog.Logger {
 				EncodeDuration: zapcore.StringDurationEncoder,
 			}),
 			zapcore.AddSync(writer),
+			zap.NewAtomicLevelAt(CountdownLevel(level)),
+		)),
+	}
+}
+
+func NewConsole(level int, colorize bool) slog.Logger {
+	var (
+		writer     io.Writer = os.Stdout
+		lvlEncoder           = zapcore.CapitalLevelEncoder
+	)
+
+	if colorize {
+		lvlEncoder = zapcore.CapitalColorLevelEncoder
+		writer = colorable.NewColorableStdout()
+	}
+
+	return &loggerImpl{
+		logger: zap.New(zapcore.NewCore(
+			zapcore.NewConsoleEncoder(zapcore.EncoderConfig{
+				MessageKey:     msgKey,
+				LevelKey:       levelKey,
+				NameKey:        nameKey,
+				TimeKey:        timeKey,
+				EncodeLevel:    lvlEncoder,
+				EncodeTime:     zapcore.ISO8601TimeEncoder,
+				EncodeDuration: zapcore.StringDurationEncoder,
+			}),
+			zapcore.AddSync(writer),
+			zap.NewAtomicLevelAt(CountdownLevel(level)),
+		)),
+	}
+}
+
+func NewJSON(level int) slog.Logger {
+	return &loggerImpl{
+		logger: zap.New(zapcore.NewCore(
+			zapcore.NewJSONEncoder(zapcore.EncoderConfig{
+				MessageKey:     msgKey,
+				LevelKey:       levelKey,
+				NameKey:        nameKey,
+				TimeKey:        timeKey,
+				EncodeLevel:    zapcore.LowercaseLevelEncoder,
+				EncodeTime:     zapcore.ISO8601TimeEncoder,
+				EncodeDuration: zapcore.StringDurationEncoder,
+			}),
+			zapcore.AddSync(os.Stdout),
 			zap.NewAtomicLevelAt(CountdownLevel(level)),
 		)),
 	}
