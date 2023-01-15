@@ -98,6 +98,14 @@ func NewJSON(level int) slog.Logger {
 	}
 }
 
+func ZapFromSLog(log slog.Logger) *zap.Logger {
+	if zl, ok := log.(*loggerImpl); ok {
+		return zl.logger
+	}
+
+	return zap.NewNop()
+}
+
 func (l *loggerImpl) Error(args ...any) {
 	msg := getMessage(args...)
 	l.logger.Error(msg.message, msg.fields...)
