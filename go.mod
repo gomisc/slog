@@ -3,10 +3,10 @@ module gopkg.in/gomisc/slog.v1
 go 1.18
 
 require (
-	gopkg.in/gomisc/errors.v1 latest
-	gopkg.in/gomisc/fields.v1 latest
 	github.com/mattn/go-colorable v0.1.12
 	go.uber.org/zap v1.21.0
+	gopkg.in/gomisc/errors.v1 v1.3.2
+	gopkg.in/gomisc/fields.v1 v1.1.2
 )
 
 require (
