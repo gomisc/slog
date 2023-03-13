@@ -6,7 +6,7 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zaptest"
 
-	"git.eth4.dev/golibs/slog"
+	"gopkg.in/gomisc/slog.v1"
 )
 
 // Testing - logger соответсвующий logger.Logger и zaptest.TestingT

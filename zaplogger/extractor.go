@@ -1,8 +1,8 @@
 package zaplogger
 
 import (
-	"git.eth4.dev/golibs/errors"
 	"go.uber.org/zap"
+	"gopkg.in/gomisc/errors.v1"
 )
 
 func (m *zapMessage) Bool(key string, value bool) {

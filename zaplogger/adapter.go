@@ -6,7 +6,7 @@ import (
 
 	"go.uber.org/zap"
 
-	"git.eth4.dev/golibs/fields"
+	"gopkg.in/gomisc/fields.v1"
 )
 
 type zapMessage struct {

@@ -1,10 +1,10 @@
-module git.eth4.dev/golibs/slog
+module gopkg.in/gomisc/slog.v1
 
 go 1.18
 
 require (
-	git.eth4.dev/golibs/errors v1.2.3
-	git.eth4.dev/golibs/fields v1.1.1
+	gopkg.in/gomisc/errors.v1 latest
+	gopkg.in/gomisc/fields.v1 latest
 	github.com/mattn/go-colorable v0.1.12
 	go.uber.org/zap v1.21.0
 )

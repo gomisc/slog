@@ -8,7 +8,7 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
-	"git.eth4.dev/golibs/slog"
+	"gopkg.in/gomisc/slog.v1"
 )
 
 const (
